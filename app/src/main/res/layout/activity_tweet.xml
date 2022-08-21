@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- CoordinatorLayout is used to create scrolling and "floating" effects within a layout -->
+<!-- This is typically the root layout which wraps the app bar and content -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- AppBarLayout is a wrapper for a Toolbar in order to apply scrolling effects. -->
+    <!-- Note that AppBarLayout expects to be the first child nested within a CoordinatorLayout -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <!-- Toolbar is the actual app bar with text and the action items -->
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="409dp"
+            android:layout_height="601dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/twProfile2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/twname2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        tools:text="someone123" />
+
+                    <TextView
+                        android:id="@+id/twUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:text="user123" />
+
+                    <TextView
+                        android:id="@+id/tbody2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autoLink="all"
+                        android:linksClickable="true"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:text="Hello world, it's a tweet!!" />
+
+                    <ImageView
+                        android:id="@+id/twImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:visibility="gone"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                    <TextView
+                        android:id="@+id/twTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        tools:text="0 scndes ago" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/icComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    app:drawableLeftCompat="@drawable/ic_outline_mode_comment_24" />
+
+                <TextView
+                    android:id="@+id/icRetweet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    app:drawableLeftCompat="@drawable/ic_repeat" />
+
+                <TextView
+                    android:id="@+id/icLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    app:drawableLeftCompat="@drawable/ic_heart" />
+
+                <TextView
+                    android:id="@+id/icShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-medium"
+                    app:drawableLeftCompat="@drawable/ic_baseline_share_24" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
