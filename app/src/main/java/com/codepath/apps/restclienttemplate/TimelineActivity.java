@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private final int REQUEST_CODE = 25;
     public static final String TAG = "TimelineActivity";
     TwitterClient client;
     RecyclerView rvTweets;
@@ -154,9 +156,19 @@ public class TimelineActivity extends AppCompatActivity {
 //            Toast.makeText(this,"Create new tweet!", Toast.LENGTH_SHORT).show();
             //Navigate to create activity
             Intent intent = new Intent(this, CreateActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            // Get data from the intent (tweet)
+
+            // Update the RV with the tweet
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
