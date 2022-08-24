@@ -5,5 +5,7 @@
     <string name="login_label">Log in</string>
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">Tweets</string>
+    <string name="tweet">Tweet</string>
+    <string name="this_is_my_tweet">This is my tweet!</string>
 
 </resources>
