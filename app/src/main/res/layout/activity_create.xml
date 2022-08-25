@@ -35,39 +35,37 @@
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:id="@+id/createBox"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:gravity="start|top"
-            android:hint="@string/this_is_my_tweet"
-            android:inputType="textMultiLine"
-            android:minLines="5"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            app:counterEnabled="true"
-            app:counterMaxLength="280" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/twtBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/createBox"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="18dp"
-            android:backgroundTint="#DA1DA1F2"
-            android:text="@string/tweet"
-            android:textStyle="bold" />
+            <EditText
+                android:id="@+id/createBox"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:gravity="start|top"
+                android:hint="@string/this_is_my_tweet"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:counterEnabled="true"
+                app:counterMaxLength="280" />
+
+            <Button
+                android:id="@+id/twtBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/createBox"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="#DA1DA1F2"
+                android:text="@string/tweet"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
