@@ -20,6 +20,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +154,6 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.create){
             //Icon has been selected
-//            Toast.makeText(this,"Create new tweet!", Toast.LENGTH_SHORT).show();
             //Navigate to create activity
             Intent intent = new Intent(this, CreateActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
@@ -166,8 +166,12 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
             // Get data from the intent (tweet)
-
-            // Update the RV with the tweet
+                Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            // Update the RV with the tweet and modifying data source of tweets
+            tweets.add(tweet);
+            // Update the adapter
+            adapter.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
