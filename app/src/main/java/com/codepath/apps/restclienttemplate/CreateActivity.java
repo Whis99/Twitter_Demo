@@ -1,6 +1,7 @@
  package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import okhttp3.Headers;
  public class CreateActivity extends AppCompatActivity {
 
      public static final String TAG = "CreateActivity";
-     public static final int MAX_TWEET = 150;
+     public static final int MAX_TWEET = 280;
     EditText txtBox;
     Button tweetBtn;
 
@@ -32,6 +33,15 @@ import okhttp3.Headers;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow);
+        getSupportActionBar().setLogo(R.drawable.twitter);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setTitle("   Tweet");
 
         client = TwitterApp.getRestClient(this);
 
