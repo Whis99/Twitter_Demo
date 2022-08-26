@@ -41,7 +41,7 @@ import okhttp3.Headers;
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow);
         getSupportActionBar().setLogo(R.drawable.twitter);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setTitle("   Tweet");
+        getSupportActionBar().setTitle("   Twitter");
 
         client = TwitterApp.getRestClient(this);
 
