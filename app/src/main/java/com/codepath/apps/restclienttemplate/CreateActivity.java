@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +44,7 @@ import okhttp3.Headers;
 
         client = TwitterApp.getRestClient(this);
 
-        txtBox = findViewById(R.id.createBox);
+        txtBox = findViewById(R.id.composeBox);
         tweetBtn = findViewById(R.id.twtBtn);
 
         // Set click listener on button

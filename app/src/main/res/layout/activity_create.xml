@@ -40,7 +40,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/createBox"
+                android:id="@+id/composeBox"
                 android:layout_width="wrap_content"
                 android:layout_height="180dp"
                 android:layout_alignParentLeft="true"
@@ -60,7 +60,7 @@
                 android:id="@+id/twtBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/createBox"
+                android:layout_below="@+id/composeBox"
                 android:layout_alignParentRight="true"
                 android:backgroundTint="#DA1DA1F2"
                 android:text="@string/tweet"
