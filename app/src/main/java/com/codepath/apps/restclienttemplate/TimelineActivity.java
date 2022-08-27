@@ -100,6 +100,9 @@ public class TimelineActivity extends AppCompatActivity {
             public void onClick(View view) {
                     FragmentManager fm = getSupportFragmentManager();
                     ComposeDialogFragment editNameDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("profile", Parcels.wrap(user));
+                    editNameDialogFragment.setArguments(bundle);
                     editNameDialogFragment.show(fm, "fragment_edit_name");
             }
         });

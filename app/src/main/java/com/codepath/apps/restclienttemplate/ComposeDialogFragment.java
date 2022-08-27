@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,32 +11,38 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
 public class ComposeDialogFragment extends DialogFragment {
     public static final String TAG = "ComposeDialogFragment";
-    private EditText mEditText;
     public static final int MAX_TWEET = 280;
-    Button tweetBtn;
+    EditText composeEditText;
+    Button composeBtn;
+    ImageView composeImg;
+    TextView composeUsrname;
     TwitterClient client;
-    EditText usrName;
-    ImageView usrProfile;
     Context context;
-
 
 
     public ComposeDialogFragment() {
         // Empty constructor is required for DialogFragment
+
     }
 
 
@@ -46,33 +53,44 @@ public class ComposeDialogFragment extends DialogFragment {
         args.putString("title", title);
         frag.setArguments(args);
         return frag;
-
     }
+
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_create, container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.compose_dialog, container);
+
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        client = TwitterApp.getRestClient(context);
 
-
+        Bundle bundle = getArguments();
+        User thisUser = Parcels.unwrap(bundle.getParcelable("profile"));
 
         // Get field from view
-        mEditText = (EditText) view.findViewById(R.id.replyBox);
-        tweetBtn = view.findViewById(R.id.replyBtn);
-//        usrName = view.findViewById(R.id.twUserName);
-//        usrProfile = view.findViewById(R.id.twProfile);
+        client = TwitterApp.getRestClient(getContext());
+        composeEditText = (EditText) view.findViewById(R.id.composeBox);
+        composeBtn = view.findViewById(R.id.composeBtn);
+        composeImg = view.findViewById(R.id.composeProfile);
+        composeUsrname = view.findViewById(R.id.composeUsername);
 
+        composeUsrname.setText("@" + thisUser.screenName);
 
-        // Set click listener on button
-        tweetBtn.setOnClickListener(new View.OnClickListener() {
+        Glide.with(getContext())
+                .load(thisUser.profileImageUrl)
+                .transform(new RoundedCorners(70))
+                .into(composeImg);
+
+        composeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String tweetContent = mEditText.getText().toString();
+                String tweetContent = composeEditText.getText().toString();
                 if(tweetContent.isEmpty()){
                     Toast.makeText(context, "Sorry, your tweet cannot be empty", Toast.LENGTH_LONG).show();
                     return;
@@ -89,11 +107,12 @@ public class ComposeDialogFragment extends DialogFragment {
                         Log.i(TAG, "on Success to publish tweet");
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
-                            Log.i(TAG, "Published tweet says: " + tweet);
+                            Log.i(TAG, "published tweet is : " + tweet.body);
+                            Intent intent = new Intent();
+                            intent.putExtra("tweet", Parcels.wrap(tweet));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        dismiss();
                     }
 
                     @Override
@@ -101,21 +120,20 @@ public class ComposeDialogFragment extends DialogFragment {
                         Log.e(TAG, "on Failure to publish tweet", throwable);
                     }
                 });
-
+                dismiss();
             }
         });
+
 
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
-        getDialog().getWindow().setLayout(1000, 900);
-
-
         // Show soft keyboard automatically and request focus to field
-        mEditText.requestFocus();
-
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        composeEditText.requestFocus();
+        getDialog().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
     }
+
 }
 

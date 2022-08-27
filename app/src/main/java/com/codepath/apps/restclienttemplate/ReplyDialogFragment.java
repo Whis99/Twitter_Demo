@@ -76,6 +76,7 @@ public class ReplyDialogFragment extends DialogFragment {
         User thisUser = Parcels.unwrap(bundle.getParcelable("profile"));
 
         // Get field from view
+        client = TwitterApp.getRestClient(getContext());
         replyEditText = (EditText) view.findViewById(R.id.replyBox);
         replyBtn = view.findViewById(R.id.replyBtn);
         replyImg = view.findViewById(R.id.replyProfile);
@@ -112,12 +113,9 @@ public class ReplyDialogFragment extends DialogFragment {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "published tweet is : " + tweet.body);
-                            Intent intent = new Intent();
-                            intent.putExtra("tweet", Parcels.wrap(tweet));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        dismiss();
                     }
 
                     @Override
@@ -125,7 +123,7 @@ public class ReplyDialogFragment extends DialogFragment {
                         Log.e(TAG, "on Failure to publish tweet", throwable);
                     }
                 });
-
+                dismiss();
             }
         });
 

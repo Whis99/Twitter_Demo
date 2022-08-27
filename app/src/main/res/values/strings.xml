@@ -8,6 +8,6 @@
     <string name="tweet">Tweet</string>
     <string name="reply">Reply</string>
     <string name="replyText">Reply to...</string>
-    <string name="this_is_my_tweet">This is my tweet!</string>
+    <string name="this_is_my_tweet">What\'s happening!</string>
 
 </resources>
