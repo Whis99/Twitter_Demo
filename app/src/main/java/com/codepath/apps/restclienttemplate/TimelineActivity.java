@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -21,6 +22,7 @@ import com.codepath.apps.restclienttemplate.models.TweetDao;
 import com.codepath.apps.restclienttemplate.models.TweetWithUser;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    FloatingActionButton composeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class TimelineActivity extends AppCompatActivity {
 
 
         Toolbar toolbar1 = findViewById(R.id.toolbar);
+        composeBtn = findViewById(R.id.composeBtn);
+        swipeContainer = findViewById(R.id.swipeContainer);
+
         setSupportActionBar(toolbar1);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -61,7 +67,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(" Twitter");
 
-        swipeContainer = findViewById(R.id.swipeContainer);
+
 
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -85,6 +91,16 @@ public class TimelineActivity extends AppCompatActivity {
         // Recycler view setup: layout manager and the adapter
         rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adapter);
+
+        composeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         scrollListener = new EndlessRecyclerViewScrollListener(layoutManager){
             @Override
@@ -176,24 +192,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_compose, menu);
-        MenuItem menuItem = menu.findItem(R.id.create);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.create){
-            //Icon has been selected
-            //Navigate to create activity
-            Intent intent = new Intent(this, CreateActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -208,4 +207,6 @@ public class TimelineActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

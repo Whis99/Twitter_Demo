@@ -96,28 +96,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:drawableLeft="@drawable/ic_repeat"
                     android:fontFamily="sans-serif-medium"
-                    android:drawableLeft="@drawable/ic_repeat" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/twtHeart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:drawableLeft="@drawable/ic_heart"
                     android:fontFamily="sans-serif-medium"
-                    android:drawableLeft="@drawable/ic_heart" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/twtShare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:drawableLeft="@drawable/ic_baseline_share_24"
                     android:fontFamily="sans-serif-medium"
-                    android:drawableLeft="@drawable/ic_baseline_share_24" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>
+

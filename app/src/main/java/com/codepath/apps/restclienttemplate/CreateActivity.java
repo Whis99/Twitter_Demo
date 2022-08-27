@@ -61,9 +61,8 @@ import okhttp3.Headers;
                     Toast.makeText(CreateActivity.this, "Tweet is too long", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Toast.makeText(CreateActivity.this, tweetContent, Toast.LENGTH_LONG).show();
 
-                // Make an API call ti Twitter to publish the tweet
+                // Make an API call to Twitter to publish the tweet
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
