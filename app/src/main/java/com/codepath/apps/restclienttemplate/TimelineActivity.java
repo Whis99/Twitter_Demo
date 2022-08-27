@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -95,8 +96,11 @@ public class TimelineActivity extends AppCompatActivity {
         composeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(TimelineActivity.this, CreateActivity.class);
+//                startActivity(intent);
+                    FragmentManager fm = getSupportFragmentManager();
+                    ComposeDialogFragment editNameDialogFragment = ComposeDialogFragment.newInstance("Some Title");
+                    editNameDialogFragment.show(fm, "fragment_edit_name");
             }
         });
 
