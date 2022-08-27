@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -160,6 +163,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 twtHeart.setCompoundDrawables(drawable, null, null, null);
             }
 
+
+            twtComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("tweets", Parcels.wrap(tweet));
+                    bundle.putParcelable("profile", Parcels.wrap(TimelineActivity.user));
+
+                    FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
+                    ReplyDialogFragment editNameDialogFragment = ReplyDialogFragment.newInstance("Some Title");
+                    editNameDialogFragment.setArguments(bundle);
+
+                    editNameDialogFragment.show(fm, "fragment_edit_name");
+                }
+            });
         }
     }
 }

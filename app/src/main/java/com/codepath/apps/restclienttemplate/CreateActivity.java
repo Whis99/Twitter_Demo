@@ -44,8 +44,8 @@ import okhttp3.Headers;
 
         client = TwitterApp.getRestClient(this);
 
-        txtBox = findViewById(R.id.composeBox);
-        tweetBtn = findViewById(R.id.twtBtn);
+        txtBox = findViewById(R.id.replyBox);
+        tweetBtn = findViewById(R.id.replyBtn);
 
         // Set click listener on button
         tweetBtn.setOnClickListener(new View.OnClickListener() {
