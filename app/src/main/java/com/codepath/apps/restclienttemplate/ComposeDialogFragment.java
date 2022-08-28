@@ -1,8 +1,11 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
 
@@ -35,7 +39,7 @@ public class ComposeDialogFragment extends DialogFragment {
     EditText composeEditText;
     Button composeBtn;
     ImageView composeImg;
-    TextView composeUsrname;
+    TextView composeUsrname, composeClose;
     TwitterClient client;
     Context context;
 
@@ -73,14 +77,23 @@ public class ComposeDialogFragment extends DialogFragment {
         Bundle bundle = getArguments();
         User thisUser = Parcels.unwrap(bundle.getParcelable("profile"));
 
+
         // Get field from view
         client = TwitterApp.getRestClient(getContext());
         composeEditText = (EditText) view.findViewById(R.id.composeBox);
         composeBtn = view.findViewById(R.id.composeBtn);
         composeImg = view.findViewById(R.id.composeProfile);
         composeUsrname = view.findViewById(R.id.composeUsername);
+        composeClose = view.findViewById(R.id.composeClose);
 
         composeUsrname.setText("@" + thisUser.screenName);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String draft = pref.getString("draft", "");
+
+        if (!draft.isEmpty()){
+            composeEditText.setText(draft);
+        }
 
         Glide.with(getContext())
                 .load(thisUser.profileImageUrl)
@@ -108,8 +121,6 @@ public class ComposeDialogFragment extends DialogFragment {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "published tweet is : " + tweet.body);
-                            Intent intent = new Intent();
-                            intent.putExtra("tweet", Parcels.wrap(tweet));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -124,6 +135,15 @@ public class ComposeDialogFragment extends DialogFragment {
             }
         });
 
+        composeClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open();
+            }
+        });
+
+
+
 
         // Fetch arguments from bundle and set title
         String title = getArguments().getString("title", "Enter Name");
@@ -133,6 +153,39 @@ public class ComposeDialogFragment extends DialogFragment {
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
+    }
+
+
+    public void open(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setMessage("Save draft?");
+        alertDialogBuilder.setPositiveButton("Save",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        save();
+                        dismiss();
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("Delete",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+
+    public void save(){
+        String tweetContent = composeEditText.getText().toString();
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("draft", tweetContent);
+        edit.commit();
     }
 
 }
