@@ -47,6 +47,13 @@
         android:textSize="14sp"
         tools:text="In reply to" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="280"
+        app:counterTextColor = "@color/ocean_blue">
+
     <EditText
         android:id="@+id/replyBox"
         android:layout_width="match_parent"
@@ -65,6 +72,9 @@
         app:counterEnabled="true"
         app:counterMaxLength="280"
         app:counterTextAppearance="@color/grey_black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/replyBtn"

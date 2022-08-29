@@ -8,20 +8,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.parceler.Parcels;
+
+import okhttp3.Headers;
 
 public class TweetActivity extends AppCompatActivity {
 
+    public static final String TAG = "TweetActivity";
+    public static final int MAX_TWEET = 280;
     ImageView profile;
     TextView name;
     TextView userName;
@@ -33,6 +43,10 @@ public class TweetActivity extends AppCompatActivity {
     TextView icRetweet;
     TextView icShare;
     TextView icComment;
+    EditText tweetEditText;
+    Button tweetBtn;
+    Context context;
+    TwitterClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +73,8 @@ public class TweetActivity extends AppCompatActivity {
         icLike = findViewById(R.id.icLike);
         tweetTime = findViewById(R.id.twTime);
         image = findViewById(R.id.twImage);
+        tweetBtn = findViewById(R.id.twButton);
+        tweetEditText = findViewById(R.id.twBox);
 
         Tweet tweet2 = Parcels.unwrap(getIntent().getParcelableExtra("Tweet"));
 
@@ -118,6 +134,41 @@ public class TweetActivity extends AppCompatActivity {
 
             }
         });
+
+        tweetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tweetContent = tweetEditText.getText().toString();
+                if(tweetContent.isEmpty()){
+                    Toast.makeText(context, "Sorry, your tweet cannot be empty", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(tweetContent.length() > MAX_TWEET){
+                    Toast.makeText(context, "Tweet is too long", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                // Make an API call to Twitter to publish the tweet
+                client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "on Success to publish tweet");
+                        try {
+                            Tweet tweet = Tweet.fromJson(json.jsonObject);
+                            Log.i(TAG, "published tweet is : " + tweet.body);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "on Failure to publish tweet", throwable);
+                    }
+                });
+            }
+        });
+
     }
     public boolean onOptionsItemSelected(MenuItem menuItem){
         Intent intent = new Intent(TweetActivity.this, TimelineActivity.class);

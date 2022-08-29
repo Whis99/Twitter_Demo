@@ -32,12 +32,19 @@
 
         <ImageView
             android:id="@+id/composeProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:contentDescription="User profile picture"
             tools:srcCompat="@tools:sample/avatars" />
 
     </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="280"
+        app:counterTextColor = "@color/ocean_blue">
 
     <EditText
         android:id="@+id/composeBox"
@@ -54,8 +61,9 @@
         android:minLines="5"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        app:counterEnabled="true"
-        app:counterMaxLength="280" />
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/composeBtn"

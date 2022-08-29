@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
@@ -80,7 +80,7 @@ public class ComposeDialogFragment extends DialogFragment {
 
         // Get field from view
         client = TwitterApp.getRestClient(getContext());
-        composeEditText = (EditText) view.findViewById(R.id.composeBox);
+        composeEditText = view.findViewById(R.id.composeBox);
         composeBtn = view.findViewById(R.id.composeBtn);
         composeImg = view.findViewById(R.id.composeProfile);
         composeUsrname = view.findViewById(R.id.composeUsername);
@@ -97,7 +97,7 @@ public class ComposeDialogFragment extends DialogFragment {
 
         Glide.with(getContext())
                 .load(thisUser.profileImageUrl)
-                .transform(new RoundedCorners(70))
+                .transform(new CircleCrop())
                 .into(composeImg);
 
         composeBtn.setOnClickListener(new View.OnClickListener() {

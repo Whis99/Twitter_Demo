@@ -115,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -122,8 +123,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
                     app:drawableLeftCompat="@drawable/ic_outline_mode_comment_24" />
 
                 <TextView
@@ -131,8 +132,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
                     app:drawableLeftCompat="@drawable/ic_repeat" />
 
                 <TextView
@@ -140,8 +141,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
                     app:drawableLeftCompat="@drawable/ic_heart" />
 
                 <TextView
@@ -149,11 +150,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/white"
                     app:drawableLeftCompat="@drawable/ic_baseline_share_24" />
 
             </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="280"
+                app:counterTextColor = "@color/ocean_blue">
+
+                <EditText
+                    android:id="@+id/twBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="-1dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif"
+                    android:gravity="start|top"
+                    android:hint="@string/this_is_my_tweet"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/twButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="310dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#DA1DA1F2"
+                android:text="@string/tweet"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
