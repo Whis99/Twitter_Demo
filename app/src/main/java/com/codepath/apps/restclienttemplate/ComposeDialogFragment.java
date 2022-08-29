@@ -121,6 +121,11 @@ public class ComposeDialogFragment extends DialogFragment {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "published tweet is : " + tweet.body);
+                            Intent intent = new Intent();
+                            intent.putExtra("tweet", Parcels.wrap(tweet));
+
+                            ListTweets listener = (ListTweets) getTargetFragment();
+                            listener.onFinishEditDialog(tweet);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -186,6 +191,12 @@ public class ComposeDialogFragment extends DialogFragment {
         SharedPreferences.Editor edit = pref.edit();
         edit.putString("draft", tweetContent);
         edit.commit();
+    }
+
+    //interface for passing data back
+
+    public interface ListTweets{
+        void onFinishEditDialog(Tweet tweet);
     }
 
 }

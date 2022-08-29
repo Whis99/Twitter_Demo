@@ -140,11 +140,11 @@ public class TweetActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String tweetContent = tweetEditText.getText().toString();
                 if(tweetContent.isEmpty()){
-                    Toast.makeText(context, "Sorry, your tweet cannot be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Sorry, your reply cannot be empty", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(tweetContent.length() > MAX_TWEET){
-                    Toast.makeText(context, "Tweet is too long", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Reply is too long", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -156,6 +156,8 @@ public class TweetActivity extends AppCompatActivity {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "published tweet is : " + tweet.body);
+                            Intent intent = new Intent();
+                            intent.putExtra("tweet", Parcels.wrap(tweet));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

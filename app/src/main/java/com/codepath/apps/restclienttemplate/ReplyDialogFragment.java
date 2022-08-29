@@ -113,6 +113,8 @@ public class ReplyDialogFragment extends DialogFragment {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "published tweet is : " + tweet.body);
+                            Intent intent = new Intent();
+                            intent.putExtra("tweet", Parcels.wrap(tweet));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
